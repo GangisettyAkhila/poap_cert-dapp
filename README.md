@@ -1,22 +1,51 @@
-# poap_cert
+# 🎟️ POAP Certificate DApp on Algorand
 
-Welcome to your new AlgoKit project!
+This is a **Proof of Attendance Protocol (POAP)** smart contract DApp built on the **Algorand blockchain**. It allows organizers to issue **verifiable certificates or badges** to participants of events (workshops, hackathons, meetups, etc.) using Algorand NFTs.
 
-This is your workspace root. A `workspace` in AlgoKit is an orchestrated collection of standalone projects (backends, smart contracts, frontend apps and etc).
+---
 
-By default, `projects_root_path` parameter is set to `projects`. Which instructs AlgoKit CLI to create a new directory under `projects` directory when new project is instantiated via `algokit init` at the root of the workspace.
+## 🚀 Features
 
-## Getting Started
+- ✅ Mint on-chain POAP certificates for event attendees
+- ✅ Participants can claim their certificate by connecting their wallet
+- ✅ Certificates are **tamper-proof**, **verifiable**, and **permanent**
+- ✅ Issued using Algorand **Standard Assets (ASA)**
 
-To get started refer to `README.md` files in respective sub-projects in the `projects` directory.
+---
 
-To learn more about algokit, visit [documentation](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/algokit.md).
+## 🧠 Use Case
 
-### GitHub Codespaces
+Most college events and workshops issue certificates via PDF — which are easily faked, lost, or unverifiable. This DApp solves the problem by issuing a **blockchain-based proof of attendance**, visible to anyone on-chain.
 
-To get started execute:
+---
 
-1. `algokit generate devcontainer` - invoking this command from the root of this repository will create a `devcontainer.json` file with all the configuration needed to run this project in a GitHub codespace. [Run the repository inside a codespace](https://docs.github.com/en/codespaces/getting-started/quickstart) to get started.
-2. `algokit init` - invoke this command inside a github codespace to launch an interactive wizard to guide you through the process of creating a new AlgoKit project
+## ⚙️ Tech Stack
 
-Powered by [Copier templates](https://copier.readthedocs.io/en/stable/).
+- 🧠 **Smart Contracts**: PyTeal (Python for Algorand)
+- 🔁 **Beaker**: Smart contract framework
+- 🌐 **Frontend**: (Coming soon — React / HTML+JS)
+- 🔗 **AlgoKit**: For localnet and project setup
+
+---
+
+## 🛠️ Project Setup
+
+### Prerequisites
+
+- Python 3.10+
+- [AlgoKit](https://github.com/algorandfoundation/algokit-cli)
+- Poetry
+- Docker (for localnet)
+
+### Setup Steps
+
+```bash
+# Clone the repo
+git clone https://github.com/GangisettyAkhila/poap_cert.git
+cd poap_cert
+
+# Start local blockchain network
+algokit localnet start
+
+# Deploy smart contracts
+algokit project deploy
