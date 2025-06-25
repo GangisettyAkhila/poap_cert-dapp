@@ -44,6 +44,21 @@ Most college events and workshops issue certificates via PDF — which are easil
 git clone https://github.com/GangisettyAkhila/poap_cert.git
 cd poap_cert
 
+---
+
+## 🙋‍♀️ Author
+
+👩‍💻 **Akhila Gangisetty**  
+Member, Algorand Blockchain Club  
+📫 [LinkedIn](https://www.linkedin.com/in/GangisettyAkhila/) | [Email](mailto:akhila.gangisetty001@gmail.com)
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+
 # Start local blockchain network
 algokit localnet start
 
