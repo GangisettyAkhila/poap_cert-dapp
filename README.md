@@ -50,7 +50,7 @@ cd poap_cert
 
 👩‍💻 **Akhila Gangisetty**  
 Member, Algorand Blockchain Club  
-📫 [LinkedIn](https://www.linkedin.com/in/GangisettyAkhila/) | [Email](mailto:akhila.gangisetty001@gmail.com)
+📫 [LinkedIn](https://www.linkedin.com/in/akhila-gangisetty-199a01320/ | [Email](mailto:akhila.gangisetty001@gmail.com)
 
 ---
 
