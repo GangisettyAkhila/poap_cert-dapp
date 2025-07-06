@@ -21,9 +21,9 @@ Most college events and workshops issue certificates via PDF — which are easil
 
 ## ⚙️ Tech Stack
 
-- 🧠 **Smart Contracts**: PyTeal (Python for Algorand)
+- 🧠 **Smart Contracts**: PyTeal 
 - 🔁 **Beaker**: Smart contract framework
-- 🌐 **Frontend**: (Coming soon — React / HTML+JS)
+- 🌐 **Frontend** React / HTML+JS
 - 🔗 **AlgoKit**: For localnet and project setup
 
 ---
