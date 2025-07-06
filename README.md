@@ -64,3 +64,4 @@ algokit localnet start
 
 # Deploy smart contracts
 algokit project deploy
+
