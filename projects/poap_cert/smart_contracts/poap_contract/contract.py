@@ -10,6 +10,15 @@ class POAPCertificateApp(Application):
             Approve()
         )
 
+    # ✅ New method: Read the certificate event name
+    @external(read_only=True)
+    def get_certificate(self, receiver: abi.Address, *, output: abi.String):
+        return Seq(
+            output.set(App.localGet(receiver.get(), Bytes("event_name"))),
+            Approve()
+        )
+
+# ✅ Instantiate app and set schema
 app = POAPCertificateApp()
 
 app_spec = ApplicationSpec(
