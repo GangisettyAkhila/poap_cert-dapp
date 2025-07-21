@@ -1,8 +1,7 @@
 from beaker import *
 from pyteal import *
 
-class CertificateApp(Application):
-
+class POAPCertificateApp(Application):
     @external
-    def create_certificate(self, recipient: abi.Address, event_name: abi.String):
+    def create_certificate(self, receiver: abi.Address, event_name: abi.String):
         return Approve()
