@@ -1,8 +1,8 @@
-from algopy import ARC4Contract, String
-from algopy.arc4 import abimethod
+from beaker import *
+from pyteal import *
 
+class CertificateApp(Application):
 
-class PoapContract(ARC4Contract):
-    @abimethod()
-    def hello(self, name: String) -> String:
-        return "Hello, " + name
+    @external
+    def create_certificate(self, recipient: abi.Address, event_name: abi.String):
+        return Approve()
