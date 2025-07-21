@@ -1,4 +1,4 @@
-from beaker import *
+from beaker import Application, external, ApplicationSpec, ApplicationStateSchema
 from pyteal import *
 
 class POAPCertificateApp(Application):

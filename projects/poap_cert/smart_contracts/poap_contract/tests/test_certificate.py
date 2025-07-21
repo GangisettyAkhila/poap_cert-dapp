@@ -11,7 +11,7 @@ def test_deploy(app_client):
     app_client.create()
     assert app_client.app_id != 0
 
-    def test_create_and_get_certificate(app_client):
+def test_create_and_get_certificate(app_client):
     user = app_client.app_creator
 
     # Call create_certificate method
