@@ -30,3 +30,10 @@ app_spec = ApplicationSpec(
         global_bytes=0
     )
 )
+
+@external(read_only=True)
+def get_all_certificates(self, *, output: abi.String):
+    return Seq(
+        output.set("Feature not yet implemented"),
+        Approve()
+    )
