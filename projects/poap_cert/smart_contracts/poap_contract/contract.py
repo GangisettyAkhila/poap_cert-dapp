@@ -37,3 +37,10 @@ def get_all_certificates(self, *, output: abi.String):
         output.set("Feature not yet implemented"),
         Approve()
     )
+
+@external(read_only=True)
+def has_certificate(self, receiver: abi.Address, *, output: abi.Bool):
+    return Seq(
+        output.set(App.localGet(receiver.get(), Bytes("event_name")) != Bytes("")),
+        Approve()
+    )
