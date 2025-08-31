@@ -1,23 +1,19 @@
-from beaker import client, sandbox
-from smart_contracts.poap_contract.contract import POAPCertificateApp
+from poap_contract.poap import app
+from algokit_utils import client
 
-def main():
-    app = POAPCertificateApp()
-    algod_client = sandbox.get_algod_client()
-    acct = sandbox.get_accounts().pop()
-    app_client = client.ApplicationClient(
-        client=algod_client,
-        app=app,
-        signer=acct.signer,
-        app_id=12345  # Replace with your actual app ID
+def create_certificate(recipient_address: str, event_name: str):
+    # Connect to Algorand client
+    algod_client = client.get_algod_client()
+    
+    # Call issue_cert method
+    cert_id = app.issue_cert(
+        recipient=recipient_address,
+        event=event_name,
+        client=algod_client
     )
+    
+    print(f"Certificate issued! ID: {cert_id}")
 
-    result = app_client.call(
-        "create_certificate",
-        receiver=acct.address,
-        event_name="Hack Series 2025"
-    )
-    print("Certificate created:", result.confirmed_round)
-
+# Example usage
 if __name__ == "__main__":
-    main()
+    create_certificate("RECIPIENT_ADDRESS_HERE", "My First Event")
