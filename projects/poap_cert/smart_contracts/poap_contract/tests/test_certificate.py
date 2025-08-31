@@ -1,31 +1,33 @@
 import pytest
-from beaker import sandbox
-from smart_contracts.poap_contract.contract import POAPCertificateApp
+from poap_contract.poap import app
+from algokit_utils import client
 
-@pytest.fixture(scope="module")
-def app_client():
-    app = POAPCertificateApp()
-    return app.build().client(sandbox.get_algod_client())
+# Connect to Algorand client
+algod_client = client.get_algod_client()
 
-def test_deploy(app_client):
-    app_client.create()
-    assert app_client.app_id != 0
-
-def test_create_and_get_certificate(app_client):
-    user = app_client.app_creator
-
-    # Call create_certificate method
-    app_client.call(
-        "create_certificate",
-        receiver=user.address,
-        event_name="Hack Series 2025"
+def test_issue_and_verify_cert():
+    # Issue a certificate
+    cert_id = app.issue_cert(
+        recipient="TEST_RECIPIENT_ADDRESS",
+        event="Test Event",
+        client=algod_client
     )
 
-    # Call get_certificate to fetch it
-    result = app_client.call(
-        "get_certificate",
-        receiver=user.address
+    # Verify certificate
+    result = app.verify_cert(cert_id=cert_id, client=algod_client)
+    assert result == "Test Event"
+
+def test_revoke_cert():
+    # Issue another certificate
+    cert_id = app.issue_cert(
+        recipient="TEST_RECIPIENT_ADDRESS",
+        event="Revocable Event",
+        client=algod_client
     )
 
-    assert result.return_value == "Hack Series 2025"
+    # Revoke it
+    app.revoke_cert(cert_id=cert_id, client=algod_client)
 
+    # Verify certificate
+    result = app.verify_cert(cert_id=cert_id, client=algod_client)
+    assert result == "Invalid or Revoked"
