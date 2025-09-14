@@ -1,13 +1,21 @@
-from poap_contract.poap import app
-from poap_contract.config import CREATOR_ADDRESS, CREATOR_MNEMONIC
+from smart_contracts.poap_contract.config import CREATOR_MNEMONIC
 import algokit_utils
-
-# Setup Algorand client
-algorand = algokit_utils.AlgorandClient.from_mnemonic(CREATOR_MNEMONIC)
-deployer = algorand.account.from_private_key(CREATOR_ADDRESS)
+from smart_contracts.artifacts.poap_contract.client import PoapCertClient
 
 def revoke_certificate(cert_id: int):
-    app.revoke_cert(cert_id=cert_id, client=algorand.client, signer=deployer.signer)
+    # Setup Algorand client
+    algod_client = algokit_utils.get_algod_client()
+    creator_account = algokit_utils.get_account_from_mnemonic(CREATOR_MNEMONIC)
+
+    # Create typed app client
+    app_client = PoapCertClient(
+        algod_client=algod_client,
+        creator=creator_account,
+        template_values={"UPDATABLE": 1, "DELETABLE": 1}
+    )
+
+    # Revoke certificate
+    app_client.revoke_cert(cert_id=cert_id)
     print(f"Certificate {cert_id} revoked!")
 
 # Example usage
