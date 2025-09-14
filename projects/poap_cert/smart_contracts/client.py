@@ -2,10 +2,10 @@
 
 from algosdk import account
 from beaker import client, sandbox
-from contract.contract import POAPCertificateApp
+from smart_contracts.poap_contract.contract import PoapCert
 
 # initialize app + client
-app = POAPCertificateApp()
+app = PoapCert()
 app_client = client.ApplicationClient(
     client=sandbox.get_algod_client(),
     app=app,
@@ -16,18 +16,19 @@ app_client = client.ApplicationClient(
 app_id, app_addr, txid = app_client.create()
 print(f"Deployed App ID: {app_id}")
 
-# call create_certificate
+# call issue_cert
 receiver = sandbox.get_accounts()[1].address
-app_client.call(
-    method="create_certificate",
-    receiver=receiver,
-    event_name="DevCon 2025",
-)
-print(f"Certificate created for {receiver}")
-
-# call get_certificate
 result = app_client.call(
-    method="get_certificate",
-    receiver=receiver,
+    method="issue_cert",
+    recipient=receiver,
+    event="DevCon 2025",
+)
+cert_id = result.return_value
+print(f"Certificate created for {receiver} with ID: {cert_id}")
+
+# call verify_cert
+result = app_client.call(
+    method="verify_cert",
+    cert_id=cert_id,
 )
 print(f"Fetched Event: {result.return_value}")
