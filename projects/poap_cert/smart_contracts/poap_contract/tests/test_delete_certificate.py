@@ -1,29 +1,32 @@
 import pytest
-from beaker.client import ApplicationClient
-from beaker import localnet
-from smart_contracts.poap_contract.contract import POAPCertificateApp
+from algosdk.v2client.algod import AlgodClient
+from algokit_utils import get_localnet_default_account
+from smart_contracts.artifacts.poap_contract.client import PoapCertClient
 
 @pytest.fixture(scope="module")
-def app_client():
-    app = POAPCertificateApp()
-    client = ApplicationClient(
-        client=localnet.get_algod_client(),
-        app=app,
-        signer=localnet.get_accounts().pop(),
+def poap_client(algod_client: AlgodClient) -> PoapCertClient:
+    account = get_localnet_default_account(algod_client)
+    client = PoapCertClient(
+        algod_client,
+        creator=account,
     )
-    client.create()
+    client.deploy(
+        allow_update=True,
+        allow_delete=True,
+    )
     return client
 
-def test_delete_certificate(app_client):
-    receiver = app_client.signer.address
-    event_name = "AlgoCon2025"
-
-    # Create certificate
-    app_client.call("create_certificate", receiver=receiver, event_name=event_name)
+def test_delete_certificate(poap_client: PoapCertClient):
+    # Issue a certificate
+    result = poap_client.issue_cert(
+        recipient=poap_client.app_creator.address,
+        event="Test Event",
+    )
+    cert_id = result.return_value
 
     # Delete certificate
-    app_client.call("delete_certificate", receiver=receiver)
+    poap_client.delete_certificate(cert_id=cert_id)
 
-    # Try to read the deleted value
-    result = app_client.get_local_state(receiver)
-    assert "event_name" not in result
+    # Verify certificate is invalid
+    result = poap_client.verify_cert(cert_id=cert_id)
+    assert result.return_value == "Invalid or Revoked"
