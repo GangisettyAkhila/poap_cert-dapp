@@ -1,6 +1,7 @@
 import logging
 import algokit_utils
 from smart_contracts.poap_contract.config import CREATOR_ADDRESS, CREATOR_MNEMONIC
+from smart_contracts.poap_contract.algopy_contract import PoapCert  # Algopy contract class
 
 logger = logging.getLogger(__name__)
 
@@ -8,28 +9,25 @@ def deploy() -> None:
     """
     Deploy the PoAP certificate smart contract to Algorand testnet
     """
-    # Import the compiled contract factory
-    from smart_contracts.artifacts.poap_contract.client import PoapCertClient
-
     # Setup Algorand client using deployer credentials from config.py
-    algorand = algokit_utils.get_algod_client()
+    algod_client = algokit_utils.get_algod_client()
     deployer = algokit_utils.get_account_from_mnemonic(CREATOR_MNEMONIC)
 
-    # Create typed app factory
-    app_client = PoapCertClient(
-        algod_client=algorand,
+    # Compile the Algopy contract (generates TEAL files)
+    app = PoapCert()
+    app.compile("poap_cert.teal")
+
+    # Deploy the contract using Algokit utils
+    app_client = algokit_utils.deploy_app(
+        algod_client=algod_client,
         creator=deployer,
+        approval_file="poap_cert.teal",
+        clear_file="poap_cert.teal",  # You can split if you have separate clear program
     )
 
-    # Deploy the contract
-    app_client.deploy(
-        on_update=algokit_utils.OnUpdate.AppendApp,
-        on_schema_break=algokit_utils.OnSchemaBreak.AppendApp,
-    )
-
-    # Fund the contract with 1 ALGO after deployment
+    # Fund the contract with 1 ALGO after deployment (optional)
     if app_client.app_id == 0:
-        algorand.send.payment(
+        algod_client.send.payment(
             algokit_utils.PaymentParams(
                 amount=algokit_utils.AlgoAmount(algo=1),
                 sender=deployer.address,
@@ -43,4 +41,3 @@ def deploy() -> None:
 
 if __name__ == "__main__":
     deploy()
-
