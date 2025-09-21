@@ -22,7 +22,7 @@ Most college events and workshops issue certificates via PDF — which are easil
 
 ## ⚙️ Tech Stack
 
-- 🧠 **Smart Contracts**: Algopy
+- 🧠 **Smart Contracts**: Algopy (Algorand Python)
 - 🌐 **Frontend**: React / HTML+JS
 - 🔗 **AlgoKit**: For localnet setup and deployment
 - 🐍 **Python**: For scripts to issue, revoke, and verify certificates
