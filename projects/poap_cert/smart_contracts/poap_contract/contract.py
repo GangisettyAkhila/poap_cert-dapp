@@ -1,5 +1,5 @@
 
-from beaker import Application, external, create, Authorize
+from beaker import *
 from pyteal import *
 
 class PoapCert(Application):
@@ -8,20 +8,20 @@ class PoapCert(Application):
     """
 
     # Global State
-    cert_counter = ApplicationStateValue(
+    cert_counter = GlobalStateValue(
         stack_type=TealType.uint64, default=Int(0)
     )
 
     # Mappings
-    cert_recipient = Mapping(TealType.uint64, TealType.bytes)
-    cert_event = Mapping(TealType.uint64, TealType.bytes)
-    cert_valid = Mapping(TealType.uint64, TealType.uint64)
+    cert_recipient = GlobalStateMap(key_type=TealType.uint64, value_type=TealType.bytes)
+    cert_event = GlobalStateMap(key_type=TealType.uint64, value_type=TealType.bytes)
+    cert_valid = GlobalStateMap(key_type=TealType.uint64, value_type=TealType.uint64)
 
     @create
     def create(self):
-        return self.initialize_application_state()
+        return self.initialize_global_state()
 
-    @external(authorize=Authorize.only_creator())
+    @external(authorize=Authorize.only(Global.creator_address()))
     def issue_cert(
         self, recipient: abi.Address, event: abi.String, *, output: abi.Uint64
     ):
@@ -42,7 +42,7 @@ class PoapCert(Application):
             output.set(Bytes("Invalid or Revoked")),
         )
 
-    @external(authorize=Authorize.only_creator())
+    @external(authorize=Authorize.only(Global.creator_address()))
     def revoke_cert(self, cert_id: abi.Uint64):
         return self.cert_valid[cert_id.get()].set(Int(0))
 
