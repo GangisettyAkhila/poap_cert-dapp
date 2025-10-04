@@ -16,7 +16,7 @@ This is a **Proof of Attendance Protocol (POAP)** smart contract DApp built on t
 
 ## 🧠 Use Case
 
-Most college events and workshops issue certificates via PDF — which are easily faked, lost, or unverifiable. This DApp solves the problem by issuing a **blockchain-based proof of attendance**, visible to anyone on-chain, and fully verifiable via smart contract queries.
+Most college events and workshops issue certificates via PDF — which are easily faked, lost, or unverifiable. This DApp solves the problem by issuing a **blockchain-based proof of attendance**, visible to anyone on-chain, and fully verifiable through smart contract queries.
 
 ---
 
