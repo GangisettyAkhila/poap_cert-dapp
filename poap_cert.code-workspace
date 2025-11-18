@@ -1,11 +1,16 @@
 {
   "folders": [
     {
-      "path": "./",
-      "name": "ROOT"
+      "name": "ROOT",
+      "path": "."
     },
     {
+      "name": "poap_cert",
       "path": "projects/poap_cert"
+    },
+    {
+      "name": "poapcert_frontend",
+      "path": "projects/poapcert_frontend"
     }
   ],
   "settings": {
