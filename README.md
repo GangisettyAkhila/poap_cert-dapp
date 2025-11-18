@@ -6,11 +6,11 @@ This is a **Proof of Attendance Protocol (POAP)** smart contract DApp built on t
 
 ## 🚀 Features
 
-- ✅ Mint on-chain POAP certificates for event attendees
-- ✅ Issue, revoke, and query certificates programmatically
-- ✅ Certificates are **tamper-proof**, **verifiable**, and **permanent**
-- ✅ Issued using **Algorand smart contracts** (Algopy)
-- ✅ Fully programmable via Python scripts (issue, revoke, verify)
+🎟️ Mint on-chain POAP certificates for event attendees
+⚡ Issue, revoke, and query certificates effortlessly
+🔒 Certificates are tamper-proof, verifiable, and permanent on-chain
+🧠 Built using Algorand smart contracts with Algopy
+🐍 Fully scriptable via Python for issuing, revoking, and verifying
 
 ---
 
